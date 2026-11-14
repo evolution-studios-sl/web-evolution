@@ -37,7 +37,6 @@
     ba.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
     ['pointerup', 'pointercancel'].forEach(function (t) { ba.addEventListener(t, function () { dragging = false; }); });
     input.addEventListener('input', function () { setP(+input.value); });
-    ba.addEventListener('click', function () { input.focus({ preventScroll: true }); });
   }
 
   // Vídeo: siempre sin sonido y en bucle
