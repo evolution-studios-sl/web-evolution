@@ -39,20 +39,52 @@
     input.addEventListener('input', function () { setP(+input.value); });
   }
 
-  // Vídeo: siempre sin sonido y en bucle
-  var v = document.getElementById('promo');
+  // Vídeo pequeño: siempre sin sonido y en bucle
+  var v = document.getElementById('promo'), vmOpen = false;
+  var tryPlay = function (el) { var p = el.play(); if (p && p.catch) p.catch(function () {}); };
   if (v) {
     v.muted = true; v.loop = true;
-    var tryPlay = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) {
-        en.forEach(function (x) { if (x.isIntersecting) tryPlay(); else v.pause(); });
+        en.forEach(function (x) { if (x.isIntersecting && !vmOpen) tryPlay(v); else v.pause(); });
       }, { threshold: 0.2 }).observe(v);
-    } else { tryPlay(); }
+    } else { tryPlay(v); }
+  }
+
+  // Vídeo en grande, con sonido y desde el principio
+  var vm = document.getElementById('vm'), openBtn = document.getElementById('promo-open');
+  if (vm && openBtn) {
+    var big = vm.querySelector('video'), vmLast = null;
+    var openVideo = function () {
+      vmLast = document.activeElement; vmOpen = true;
+      if (v) v.pause();
+      if (!big.getAttribute('src')) big.src = big.dataset.src;
+      try { big.currentTime = 0; } catch (e) {}
+      big.muted = false; big.volume = 1;
+      vm.classList.add('open'); document.body.style.overflow = 'hidden';
+      tryPlay(big); // dentro del clic, para que el móvil permita el sonido
+      vm.querySelector('.x').focus();
+    };
+    var closeVideo = function () {
+      if (!vmOpen) return;
+      vmOpen = false; big.pause();
+      try { big.currentTime = 0; } catch (e) {}
+      vm.classList.remove('open'); document.body.style.overflow = '';
+      if (v) tryPlay(v);
+      if (vmLast) vmLast.focus();
+    };
+    openBtn.addEventListener('click', openVideo);
+    vm.querySelector('.x').addEventListener('click', closeVideo);
+    vm.addEventListener('click', function (e) { if (e.target === vm) closeVideo(); });
+    big.addEventListener('ended', closeVideo);
+    big.addEventListener('webkitendfullscreen', function () { if (big.ended) closeVideo(); });
+    document.addEventListener('keydown', function (e) { if (vmOpen && e.key === 'Escape') closeVideo(); });
   }
 
   // Visor de imágenes de la galería
-  var lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  var lb = document.getElementById('lb');
+  if (!lb) return;
+  var lbImg = lb.querySelector('img');
   var items = Array.prototype.slice.call(document.querySelectorAll('.gal button')), cur = 0, last = null;
   function show(i) {
     cur = (i + items.length) % items.length;

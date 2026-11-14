@@ -9,7 +9,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Evolution Studios · Visualización 3D y desarrollo de software">
 <meta property="og:description" content="La arquitectura, antes de existir. Visualización 3D fotorrealista y aplicaciones propias.">
-<meta property="og:image" content="img/02-salon-circular-bosque-1600.webp">
+<meta property="og:url" content="https://evolution-s.com/">
+<meta property="og:image" content="https://evolution-s.com/img/02-salon-circular-bosque-1600.webp">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -112,7 +113,7 @@ h.dataset.lang=l;h.lang=l;})();
     </div>
     <a class="btn" id="apunta-btn" href="https://apuntaapp.com" target="_blank" rel="noopener"><span lang="es">Conocer Apunta App</span><span lang="en">Discover Apunta App</span> →</a>
    </div>
-   <div class="phone"><div class="scr"><div class="isl"></div><video id="promo" src="video/apunta-promo.mp4" poster="video/apunta-promo-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo promocional de Apunta App"></video></div></div>
+   <button type="button" class="phone" id="promo-open" aria-haspopup="dialog"><span class="scr"><span class="isl"></span><video id="promo" src="video/apunta-promo.mp4" poster="video/apunta-promo-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg><span lang="es">Ver con sonido</span><span lang="en">Watch with sound</span></span></span></button>
   </div>
  </div>
 </section>
@@ -126,13 +127,18 @@ h.dataset.lang=l;h.lang=l;})();
 </section>
 </main>
 
-<footer><span>© <span id="yr">2026</span> Evolution Studios S.L.</span><img src="img/logo_blanco.png" alt="" width="842" height="160"></footer>
+<footer><span>© <span id="yr">2026</span> Evolution Studios S.L. · <a href="aviso-legal.html"><span lang="es">Aviso legal</span><span lang="en">Legal notice</span></a></span><img src="img/logo_blanco.png" alt="" width="842" height="160"></footer>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Imagen ampliada">
  <button type="button" class="x" aria-label="Cerrar / Close">×</button>
  <button type="button" class="pv" aria-label="Anterior / Previous">‹</button>
  <img alt="">
  <button type="button" class="nx" aria-label="Siguiente / Next">›</button>
+</div>
+
+<div class="vm" id="vm" role="dialog" aria-modal="true" aria-label="Apunta App">
+ <button type="button" class="x" aria-label="Cerrar / Close">×</button>
+ <video controls playsinline preload="none" data-src="video/apunta-promo-sonido.mp4" poster="video/apunta-promo-poster.jpg"></video>
 </div>
 
 <script src="js/main.js"></script>
