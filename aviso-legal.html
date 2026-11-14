@@ -14,7 +14,7 @@
 <script>
 (function(){var h=document.documentElement,l=null;
 try{l=localStorage.getItem('lang')}catch(e){}
-var q=new URLSearchParams(location.search).get('lang');if(q==='es'||q==='en')l=q;
+var q=new URLSearchParams(location.search).get('lang');if(q==='es'||q==='en'){l=q;try{localStorage.setItem('lang',q)}catch(e){}}
 if(l!=='es'&&l!=='en'){l=(navigator.language||'es').slice(0,2).toLowerCase()==='es'?'es':'en'}
 h.dataset.lang=l;h.lang=l;})();
 </script>
